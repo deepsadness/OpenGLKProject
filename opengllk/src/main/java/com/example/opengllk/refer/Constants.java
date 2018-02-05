@@ -1,3 +1,5 @@
+package com.example.opengllk.refer;
+
 /***
  * Excerpted from "OpenGL ES for Android",
  * published by The Pragmatic Bookshelf.
@@ -6,7 +8,6 @@
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/kbogla for more book information.
 ***/
-package com.example.opengllk.refer;
 
 public class Constants {
     public static final int BYTES_PER_FLOAT = 4;

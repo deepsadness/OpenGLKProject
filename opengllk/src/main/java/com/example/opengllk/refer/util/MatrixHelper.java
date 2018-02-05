@@ -1,5 +1,3 @@
-package com.example.opengllk.refer.util;
-
 /***
  * Excerpted from "OpenGL ES for Android",
  * published by The Pragmatic Bookshelf.
@@ -8,6 +6,7 @@ package com.example.opengllk.refer.util;
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/kbogla for more book information.
 ***/
+package com.example.opengllk.refer.util;
 
 public class MatrixHelper {
     public static void perspectiveM(float[] m, float yFovInDegrees, float aspect,

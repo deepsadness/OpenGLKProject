@@ -7,7 +7,6 @@ package com.example.opengllk.refer.programs; /***
  * Visit http://www.pragmaticprogrammer.com/titles/kbogla for more book information.
  ***/
 
-
 import static android.opengl.GLES20.glUseProgram;
 
 import android.content.Context;
@@ -15,15 +14,22 @@ import android.content.Context;
 import com.example.opengllk.refer.util.ShaderHelper;
 import com.example.opengllk.refer.util.TextResourceReader;
 
+
 abstract class ShaderProgram {
     // Uniform constants
     protected static final String U_MATRIX = "u_Matrix";
+    protected static final String U_COLOR = "u_Color";
     protected static final String U_TEXTURE_UNIT = "u_TextureUnit";
+    protected static final String U_TIME = "u_Time";
 
     // Attribute constants
     protected static final String A_POSITION = "a_Position";
     protected static final String A_COLOR = "a_Color";
     protected static final String A_TEXTURE_COORDINATES = "a_TextureCoordinates";
+
+
+    protected static final String A_DIRECTION_VECTOR = "a_DirectionVector";
+    protected static final String A_PARTICLE_START_TIME = "a_ParticleStartTime";
 
     // Shader program
     protected final int program;
@@ -32,10 +38,10 @@ abstract class ShaderProgram {
                             int fragmentShaderResourceId) {
         // Compile the shaders and link the program.
         program = ShaderHelper.buildProgram(
-                TextResourceReader.readTextFileFromResource(
-                        context, vertexShaderResourceId),
-                TextResourceReader.readTextFileFromResource(
-                        context, fragmentShaderResourceId));
+                TextResourceReader
+                        .readTextFileFromResource(context, vertexShaderResourceId),
+                TextResourceReader
+                        .readTextFileFromResource(context, fragmentShaderResourceId));
     }
 
     public void useProgram() {

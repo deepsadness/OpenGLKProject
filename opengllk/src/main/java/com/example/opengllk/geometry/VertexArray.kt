@@ -38,4 +38,10 @@ class VertexArray(vertexData: FloatArray) {
         //再讲floatBuffer重置回来
         floatBuffer.position(0)
     }
+
+    fun updateBuffer(vertexData: FloatArray, start: Int, count: Int) {
+        floatBuffer.position(start)
+        floatBuffer.put(vertexData,start,count)
+        floatBuffer.position(0)
+    }
 }

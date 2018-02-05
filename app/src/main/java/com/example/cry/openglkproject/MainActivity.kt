@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.cry.openglkproject.utils.shortToast
 import com.example.opengllk.refer.AirHockeyRenderer
+import com.example.opengllk.refer.ParticlesRenderer
 import com.example.opengllk.renderer.SimpleTextureRenderer
 import com.example.opengllk.supportOpenGLES2
 
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 //            glSurfaceView.setRenderer(SimpleColorRenderer(this))
 //            glSurfaceView.setRenderer(SimpleMatrixRenderer(this))
 //            glSurfaceView.setRenderer(Simple3DRenderer(this))
-            glSurfaceView.setRenderer(SimpleTextureRenderer(this))
+            glSurfaceView.setRenderer(ParticlesRenderer(this))
 //            glSurfaceView.setRenderer(AirHockeyRenderer(this))
             //设置标识位
             rendererSet = true

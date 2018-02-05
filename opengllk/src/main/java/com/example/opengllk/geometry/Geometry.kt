@@ -20,10 +20,47 @@ import com.example.opengllk.program.Simple3DShader
 
 
 class Geometry {
-    val puck=Puck(0.06f,0.02f,32)
-    val mallet:Mallet=Mallet(0.08f,0.15f,32)
+    val puck = Puck(0.06f, 0.02f, 32)
+    val mallet: Mallet = Mallet(0.08f, 0.15f, 32)
 
+    class Vector(val x: Float, val y: Float, val z: Float) {
 
+        fun length(): Float {
+            val tempDoubleX = x.toDouble()
+            val tempDoubleY = y.toDouble()
+            val tempDoubleZ = z.toDouble()
+            return Math.sqrt(
+                    tempDoubleX * tempDoubleX
+                            + tempDoubleY * tempDoubleY
+                            + tempDoubleZ * tempDoubleZ).toFloat()
+        }
+
+        // http://en.wikipedia.org/wiki/Cross_product
+        //结果的模是一个向量在垂直于另一个向量方向上的投影的数值乘积，或者说是两个向量为边构成的平行四边形的面积
+        fun crossProduct(other: Vector): Vector {
+            return Vector(
+                    (y * other.z) - (z * other.y),
+                    (z * other.x) - (x * other.z),
+                    (x * other.y) - (y * other.x))
+        }
+
+        // http://en.wikipedia.org/wiki/Dot_product
+        //点乘:一个向量在平行于另一个向量方向上的投影的数值乘积
+        fun dotProduct(other: Vector): Float {
+            return (x * other.x
+                    + y * other.y
+                    + z * other.z)
+        }
+
+        fun scale(f: Float): Vector {
+            return Vector(
+                    x * f,
+                    y * f,
+                    z * f)
+        }
+    }
+
+    class Ray(val point: Point, val vector: Vector)
 
 
     data class Point(val x: Float, val y: Float, val z: Float) {

@@ -1,4 +1,4 @@
-package com.example.opengllk.refer.util; /***
+/***
  * Excerpted from "OpenGL ES for Android",
  * published by The Pragmatic Bookshelf.
  * Copyrights apply to this code. It may not be used to create training material, 
@@ -6,8 +6,7 @@ package com.example.opengllk.refer.util; /***
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/kbogla for more book information.
 ***/
-
-
+package com.example.opengllk.refer.util;
 import static android.opengl.GLES20.GL_COMPILE_STATUS;
 import static android.opengl.GLES20.GL_FRAGMENT_SHADER;
 import static android.opengl.GLES20.GL_LINK_STATUS;
@@ -28,6 +27,7 @@ import static android.opengl.GLES20.glShaderSource;
 import static android.opengl.GLES20.glValidateProgram;
 import android.util.Log;
 
+import com.example.opengllk.refer.util.LoggerConfig;
 
 public class ShaderHelper {
     private static final String TAG = "ShaderHelper";
