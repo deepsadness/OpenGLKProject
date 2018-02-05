@@ -2,7 +2,8 @@ package com.example.opengllk.geometry
 
 import android.opengl.Matrix.multiplyMV
 import android.opengl.Matrix.setRotateEulerM
-
+import android.util.Log
+import java.util.*
 
 
 /**
@@ -13,12 +14,9 @@ class ParticleShooter(
         private val direction: Geometry.Vector,
         private val color: Int) {
 
-    init {
-
-    }
-
     fun addParticles(particleSystem: ParticleSystem, currentTime: Float, count: Int) {
         for (i in 0 until count) {
+            //开始扩散粒子
 //            setRotateEulerM(rotationMatrix, 0,
 //                    (random.nextFloat() - 0.5f) * angleVariance,
 //                    (random.nextFloat() - 0.5f) * angleVariance,

@@ -29,7 +29,7 @@ class ParticleSystem(private val maxParticleCount: Int) : BaseGeometry() {
     private var currentParticleCount = 0
     private var nextParticle = 0
 
-    val particles = FloatArray(maxParticleCount * TOTAL_COMPONENT_COUNT)
+    private val particles = FloatArray(maxParticleCount * TOTAL_COMPONENT_COUNT)
 
     init {
         vertexArray = VertexArray(particles)
@@ -69,13 +69,14 @@ class ParticleSystem(private val maxParticleCount: Int) : BaseGeometry() {
         particles[currentOffset++] = direction.y
         particles[currentOffset++] = direction.z
 
-        particles[currentOffset++] = particleStartTime
+        particles[currentOffset] = particleStartTime
 
         //还需要将这些数据复制到缓冲区中。
         vertexArray.updateBuffer(particles, particleOffset, TOTAL_COMPONENT_COUNT)
     }
 
     fun bindData(program: ParticlesShader) {
+        //绑定顶点着色器
         var dataOffset = 0
         vertexArray.setVertexAttributePointer(
                 dataOffset,
