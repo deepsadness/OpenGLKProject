@@ -3,6 +3,7 @@ package com.example.opengllk
 import android.app.ActivityManager
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.opengl.GLES20
 import android.opengl.GLUtils
@@ -139,7 +140,7 @@ fun Int.validateAndUseProgram() {
     if (status[0] == 0) {
         Log.w("OpenGL Utils", "Program validate failed!")
     } else {
-        Log.d("OpenGL Utils", "Program validate Success!")
+//        Log.d("OpenGL Utils", "Program validate Success!")
         GLES20.glUseProgram(this)
     }
 }
@@ -185,3 +186,64 @@ fun Int.loadTexture(context: Context): Int {
     return textureObjectsIds[0]
 }
 
+/**
+ * 加载立方体贴图
+ */
+fun IntArray.loadCubeMap(context: Context): Int {
+    val textureObjectsIds = IntArray(1)
+
+    GLES20.glGenTextures(1, textureObjectsIds, 0)
+    if (textureObjectsIds[0] == 0) {
+        Log.e("OpenGL Utils", "Could not generate a new OpenGL texture object.")
+        return 0
+    }
+    //进行位图bitmap的绑定
+    var options = BitmapFactory.Options()
+    options.inScaled = false
+
+    val cubeBitmaps = ArrayList<Bitmap>(6)
+
+    for (i in 0 until 6) {
+        Log.d("OpenGL Utils", "create bitmap index=" + i)
+
+        val singleRes = this[i]
+        val bitmap = BitmapFactory.decodeResource(context.resources, singleRes, options)
+
+        if (bitmap == null) {
+            Log.e("OpenGL Utils", "Resource ID" + this + " could not be decoded.")
+            GLES20.glDeleteTextures(1, textureObjectsIds, 0)
+            return 0
+        }
+
+        cubeBitmaps.add(i,bitmap)
+    }
+
+    //接着进行绑定
+    GLES20.glBindTexture(GLES20.GL_TEXTURE_CUBE_MAP, textureObjectsIds[0])
+
+    //设置纹理的过滤模式
+    //缩小过滤算法，双线性..放大使用双线性.
+    //注意，这里不是去生成mipmap 所以不能使用三线性贴图
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR)
+    GLES20.glTexParameteri(GLES20.GL_TEXTURE_CUBE_MAP, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR)
+
+    //按照左右、下上、前后的顺序传递立方体的面
+
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, cubeBitmaps[0], 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, cubeBitmaps[1], 0)
+
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, cubeBitmaps[2], 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, cubeBitmaps[3], 0)
+
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, cubeBitmaps[4], 0)
+    GLUtils.texImage2D(GLES20.GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, cubeBitmaps[5], 0)
+
+    //回收
+    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0)
+
+    for (cubeBitmap in cubeBitmaps) {
+        cubeBitmap.recycle()
+    }
+
+    return textureObjectsIds[0]
+}

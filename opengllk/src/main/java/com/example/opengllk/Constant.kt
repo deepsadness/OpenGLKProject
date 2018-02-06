@@ -3,8 +3,9 @@ package com.example.opengllk
 /**
  * Created by Cry on 2018/2/3.
  */
-public class Constant {
-    public companion object {
-        public val BYTES_PER_FLOAT = 4
+class Constant {
+    companion object {
+        val BYTES_PER_FLOAT = 4
+        val BYTES_PER_SHORT = 2
     }
 }
