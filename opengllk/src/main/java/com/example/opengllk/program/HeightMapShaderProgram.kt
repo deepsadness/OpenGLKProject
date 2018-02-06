@@ -23,6 +23,7 @@ class HeightMapShaderProgram(context: Context)
     private val aPositionLocation = GLES20.glGetAttribLocation(programId, A_POSITION)
 
     private val uMatrixLocation = GLES20.glGetUniformLocation(programId, U_MATRIX)
+
     fun getPositionAttributeLocation() = aPositionLocation
 
     fun setUniforms(matrix: FloatArray) {

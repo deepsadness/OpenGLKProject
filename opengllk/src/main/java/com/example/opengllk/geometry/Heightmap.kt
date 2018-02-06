@@ -14,8 +14,8 @@ class Heightmap(bitmap: Bitmap) {
 
     }
 
-    private val width = bitmap.width/2
-    private val height = bitmap.height/2
+    private val width = bitmap.width
+    private val height = bitmap.height
 
     private val numElements = calculateNumElements()
     private val vertexBuffer = VertexBuffer(loadBitmapData(bitmap))
@@ -45,7 +45,8 @@ class Heightmap(bitmap: Bitmap) {
         bitmap.getPixels(pixels, 0, width, 0, 0, width, height)
         bitmap.recycle()
 
-        val heightmapVertices = FloatArray(width * height * POSITION_COMPONENT_COUNT)
+        val heightmapVertices = FloatArray(
+                width * height * POSITION_COMPONENT_COUNT)
         var offset = 0
         /*
         要生成高度图的每一个顶点。首先要计算顶点的位置；
@@ -116,7 +117,7 @@ class Heightmap(bitmap: Bitmap) {
     }
 
     fun draw() {
-        GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, indexBuffer.indexBufferTarget)
+        GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, indexBuffer.getBufferId())
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, numElements, GLES20.GL_UNSIGNED_SHORT, 0)
         GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, 0)
     }
